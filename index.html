@@ -6,14 +6,62 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat+Subrayada" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/style/style.css">
 </head>
 <body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 header">
+				Rock, Paper, Scissors
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 choices">
+				<!-- THREE CHOICE BUTTONS -->
+				<div class="panel panel-default">
+				  <div class="panel-heading">Choices</div>
+				  <div class="panel-body">
+				    <button class="rock">Rock</button><br>
+					<button class="paper">Paper</button><br>
+					<button class="scissors">Scissors</button>
+				  </div>
+				</div>
+			</div>
+			<div class="col-md-3 1playerframe">
+				<!-- LEFT PLAYER FRAME -->
+				<div class="panel panel-default">
+				  <div class="panel-heading">Player 1</div>
+				  <div class="panel-body">
+				    Panel content
+				  </div>
+				</div>
+			</div>
+			<div class="col-md-3 2playerframe">
+				<!-- RIGHT PLAYER FRAME -->
+				<div class="panel panel-default">
+				  <div class="panel-heading">Player 2</div>
+				  <div class="panel-body">
+				    Panel content
+				  </div>
+				</div>				
+			</div>
+			<div class="col-md-3 chatbox">
+				<!-- CHATBOX -->
+				<div class="panel panel-default">
+				  <div class="panel-heading">Chat</div>
+				  <div class="panel-body">
+				    Panel content
+				  </div>
+				</div>				
+			</div>
+		</div>
 
 
 
 
 
+	</div>
+<!-- Scripts -->
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
 	<script>
 	  // Initialize Firebase
@@ -31,6 +79,6 @@
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-messaging.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-	<script type="text/javascript" src="javascript/javascript.js"></script>
+	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
 </body>
 </html>
