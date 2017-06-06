@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="assets/style/style.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container gameon" style="display: none;">
 		<div class="row">
 			<div class="col-md-12 header">
 				Rock, Paper, Scissors
@@ -30,7 +30,7 @@
 			<div class="col-md-3 1playerframe">
 				<!-- LEFT PLAYER FRAME -->
 				<div class="panel panel-default">
-				  <div class="panel-heading">Player 1</div>
+				  <div class="panel-heading phead1">Player 1</div>
 				  <div class="panel-body">
 				    Panel content
 				  </div>
@@ -39,7 +39,7 @@
 			<div class="col-md-3 2playerframe">
 				<!-- RIGHT PLAYER FRAME -->
 				<div class="panel panel-default">
-				  <div class="panel-heading">Player 2</div>
+				  <div class="panel-heading phead2">Player 2</div>
 				  <div class="panel-body">
 				    Panel content
 				  </div>
@@ -55,11 +55,20 @@
 				</div>				
 			</div>
 		</div>
-
-
-
-
-
+	</div>
+	<div class="conatiner signin">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="panel panel-default">
+				  <div class="panel-heading">Enter Your Name</div>
+				  <div class="panel-body">
+				    <input class="col-md-12" type="text" name="entername" id="addname">
+				   	<input type="submit" class="col-md-6 joingame" value="Join Game"></input>
+				   	<button class="col-md-6 watchgame">Observe</button>
+				  </div>
+				</div>
+			</div>
+		</div>
 	</div>
 <!-- Scripts -->
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
@@ -77,6 +86,7 @@
 	</script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-messaging.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	<script type="text/javascript" src="assets/javascript/javascript.js"></script>
