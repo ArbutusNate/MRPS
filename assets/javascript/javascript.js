@@ -16,6 +16,7 @@
   var database = firebase.database();
 // Functions
   function postCompareReset(){
+    myChoice = ''
     database.ref('gameplay').set({
       picked: 0
      })
@@ -24,7 +25,9 @@
      )
      database.ref('players/player2/choice').set(
       '...'
-     )    
+     )
+     myChoice = ''
+     $('.bodyimg').hide()    
   }
   function p2Wins(){
     if(myChoice === tempp2){
@@ -78,45 +81,63 @@
   // Listen for both choices
     var choiceCheck = database.ref('gameplay/picked')
     choiceCheck.on('value', function(snapshot){
-      if(snapshot.val() === 2){
-        database.ref('players/player1/choice').once('value').then(function(snapshot1){
-          tempp1 = snapshot1.val()
-          database.ref('players/player2/choice').once('value').then(function(snapshot2){
-            tempp2 = snapshot2.val()
-            if(tempp1 === tempp2){
-              console.log("it's a tie")
-              postCompareReset()
-            }
-            if(tempp1 === 'rock' && tempp2 === 'paper'){
-              console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-              p2Wins()
-            }
-            if(tempp1 === 'rock' && tempp2 === 'scissors'){
-              console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-              p1Wins()
-            }
-            if(tempp1 === 'paper' && tempp2 === 'rock'){
-              console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-              p1Wins()
-            }
-            if(tempp1 === 'paper' && tempp2 === 'scissors'){
-              console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-              p2Wins()
-            }
-            if(tempp1 === 'scissors' && tempp2 === 'rock'){
-              console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-              p2Wins()
-            }
-            if(tempp1 === 'scissors' && tempp2 === 'paper'){
-              console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-              p1Wins()
-            }
+      // When 1 is picked
+        if(snapshot.val() === 1){
+          debugger;
+          if(playerNum === 1 && myChoice === ''){
+            $('.waiting2').show()
+          }
+          if(playerNum === 1 && myChoice != ''){
+            $('.waiting1').show()
+          }
+          if(playerNum === 2 && myChoice === ''){
+            $('.waiting1').show()
+          }
+          if(playerNum === 2 && myChoice != ''){
+            $('.waiting2').show()
+          }
+        }
+      // When 2 are picked
+        if(snapshot.val() === 2){
+          $('.removeme').empty()
+          database.ref('players/player1/choice').once('value').then(function(snapshot1){
+            tempp1 = snapshot1.val()
+            database.ref('players/player2/choice').once('value').then(function(snapshot2){
+              tempp2 = snapshot2.val()
+              if(tempp1 === tempp2){
+                console.log("it's a tie")
+                postCompareReset()
+              }
+              if(tempp1 === 'rock' && tempp2 === 'paper'){
+                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+                p2Wins()
+              }
+              if(tempp1 === 'rock' && tempp2 === 'scissors'){
+                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+                p1Wins()
+              }
+              if(tempp1 === 'paper' && tempp2 === 'rock'){
+                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+                p1Wins()
+              }
+              if(tempp1 === 'paper' && tempp2 === 'scissors'){
+                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+                p2Wins()
+              }
+              if(tempp1 === 'scissors' && tempp2 === 'rock'){
+                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+                p2Wins()
+              }
+              if(tempp1 === 'scissors' && tempp2 === 'paper'){
+                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+                p1Wins()
+              }
+            })
           })
-        })
 
-      } else {
-        //do nothing
-      }
+        } else {
+          //do nothing
+        }
     })
 
 // Event Handlers
