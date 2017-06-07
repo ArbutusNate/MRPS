@@ -10,3 +10,8 @@
 .panel-heading{
 	text-align: center;
 }
+button{
+	margin: 20% 35%;
+	width: 60px;
+	height: 60px;
+}
