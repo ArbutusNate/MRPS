@@ -48,7 +48,6 @@
         writeUserData(newplayer);
         setPlayerCount();
         $(".phead" + playernum).text(newplayer);
-        debugger;
         if (playernum === 1){
           console.log("First Player has joined the game. playernum = " + playernum)
           database.ref('users/1').once('value').then(function(snapshot){
