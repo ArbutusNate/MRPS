@@ -31,8 +31,8 @@
   }
   function p2Wins(){
     if(myChoice === tempp2){
-      debugger;
       wins++
+      $('#player2score').text(wins)
       database.ref('players/player2').set({
         name: newplayer,
         choice: '...',
@@ -45,6 +45,7 @@
   function p1Wins(){
     if(myChoice === tempp1){
       wins++
+      $('#player1score').text(wins)
       database.ref('players/player1').set({
         name:newplayer,
         choice: '...',
@@ -54,9 +55,48 @@
     }
     console.log('P1 wins.')
   }
+  function comparer(){
+    database.ref('players/player1/choice').once('value').then(function(snapshot1){
+      tempp1 = snapshot1.val()
+      database.ref('players/player2/choice').once('value').then(function(snapshot2){
+        tempp2 = snapshot2.val()
+        if(tempp1 === tempp2){
+          console.log("it's a tie")
+          postCompareReset()
+        }
+        if(tempp1 === 'rock' && tempp2 === 'paper'){
+          console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+          p2Wins()
+        }
+        if(tempp1 === 'rock' && tempp2 === 'scissors'){
+          console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+          p1Wins()
+        }
+        if(tempp1 === 'paper' && tempp2 === 'rock'){
+          console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+          p1Wins()
+        }
+        if(tempp1 === 'paper' && tempp2 === 'scissors'){
+          console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+          p2Wins()
+        }
+        if(tempp1 === 'scissors' && tempp2 === 'rock'){
+          console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+          p2Wins()
+        }
+        if(tempp1 === 'scissors' && tempp2 === 'paper'){
+          console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
+          p1Wins()
+        }
+      })
+    })
+  }
 // Listeners
   // Listen for disconnect
-    database.ref('players/player' + playerNum).onDisconnect().remove()
+    var ref = database.ref('players/player' + playerNum)
+    ref
+      .onDisconnect()
+      .remove()
 
   // Listen for new players
     var player1Check = database.ref('players/player1')
@@ -83,7 +123,6 @@
     choiceCheck.on('value', function(snapshot){
       // When 1 is picked
         if(snapshot.val() === 1){
-          debugger;
           if(playerNum === 1 && myChoice === ''){
             $('.waiting2').show()
           }
@@ -97,49 +136,13 @@
             $('.waiting2').show()
           }
         }
-      // When 2 are picked
+      // When 2 are picked - Do all the logic
         if(snapshot.val() === 2){
-          $('.removeme').empty()
-          database.ref('players/player1/choice').once('value').then(function(snapshot1){
-            tempp1 = snapshot1.val()
-            database.ref('players/player2/choice').once('value').then(function(snapshot2){
-              tempp2 = snapshot2.val()
-              if(tempp1 === tempp2){
-                console.log("it's a tie")
-                postCompareReset()
-              }
-              if(tempp1 === 'rock' && tempp2 === 'paper'){
-                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-                p2Wins()
-              }
-              if(tempp1 === 'rock' && tempp2 === 'scissors'){
-                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-                p1Wins()
-              }
-              if(tempp1 === 'paper' && tempp2 === 'rock'){
-                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-                p1Wins()
-              }
-              if(tempp1 === 'paper' && tempp2 === 'scissors'){
-                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-                p2Wins()
-              }
-              if(tempp1 === 'scissors' && tempp2 === 'rock'){
-                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-                p2Wins()
-              }
-              if(tempp1 === 'scissors' && tempp2 === 'paper'){
-                console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-                p1Wins()
-              }
-            })
-          })
-
+          setTimeout(comparer, 4000)
         } else {
           //do nothing
         }
     })
-
 // Event Handlers
 
   // Join Game Click
@@ -191,6 +194,7 @@
     $('.choicebtn').on('click', function(){
       tempChoiceName = $(this).attr('data-name')
       myChoice = $(this).attr('data-name')
+      $('.choicebtn').attr('disabled', true)
       database.ref('players/player' + playerNum + '/choice').once('value').then(function(snapshot){
         if(snapshot.val() == '...'){
           var tempChoiceCheck = snapshot.val()
@@ -235,81 +239,3 @@
   //     profile_picture : imageUrl
   //   });
   // }
-// Old Code
-  // var playerChange = database.ref('variables/playercount');
-    // playerChange.on('value', function(snapshot) {
-    //   playercountlocal = snapshot.val();
-    //   console.log('New playerCount from firebase: ' + snapshot.val());
-    //   database.ref('users/' + playercountlocal + '/username').once('value').then(function(snapshot){
-    //     $('.phead' + playercountlocal).text(snapshot.val())
-    //     });
-    // });
-  // OnDisconnect
-  // database.ref('users').on('value', function(snapshot){
-  //     debugger;
-  //     function updateplayercount() {
-  //     var newcount = Object.keys(snapshot.val()).length;
-  //     // debugger;
-  //     database.ref('variables/playercount').set({
-  //       playercount: newcount
-  //     });
-  // }
-  // });
-
-
-    // database.ref('users/' + mydbindex).onDisconnect().remove().then(function(){
-    //   debugger;
-    //   if(playercountlocal > 0){
-    //   playernum--;
-    //   database.ref('variables/playercount').set(playernum);
-    //   };
-    // });
-  // Functions
-  // function writeUserData(playername) {
-  //   debugger;
-  //   console.log('New user data added.')
-  //   database.ref('users/' + playernum).set({
-  //     username: playername,
-  //     wins: 0,
-  //   });
-    // database.ref('variables/totalplayercount').once('value').then(function(snapshot){
-    //   var temptotalplayers = snapshot.val();
-    //   temptotalplayers++;
-    //   debugger;
-    //   database.ref('/variables/totalplayercount').set({
-    //     totalplayercount: temptotalplayers
-    //   })
-    // })
-  // };
-  // function getPlayerCount() {
-  //   database.ref('variables').once('value').then(function(snapshot){
-  //       playernum = snapshot.val().playercount;
-  //       mydbindex = playernum
-  //       playernum++;
-  //       debugger;
-  //       writeUserData(newplayer);
-  //       setPlayerCount();
-  //       $('.phead' + playernum).text(newplayer);
-        // if (playernum === 1){
-        //   console.log('First Player has joined the game. playernum = ' + playernum)
-        //   database.ref('users/1').once('value').then(function(snapshot){
-        //     var tempname = snapshot.val();
-        //   });
-        // }
-        // if (playernum === 2){
-        //   console.log('Second Player has joined the game. playernum = ' + playernum)
-        //   database.ref('users/1/username').once('value').then(function(snapshot){
-        //     var tempname = snapshot.val()
-        //     $('.phead1').text(tempname);
-        //   })
-        // }
-        // if (playernum >= 3){
-        //   console.log('Observer has joined the game.')
-        // }
-    // });
-  // };
-  // function setPlayerCount() {
-  //   database.ref('/variables').set({
-  //   playercount: playernum
-  //   });
-  // };
