@@ -3,6 +3,10 @@
 	font-style: 20em;
 	height: 75px;
 	line-height: 75px;
+	font-family: mario;
+}
+.panel-heading{
+	font-family: mario;
 }
 .signinbox {
 	margin-top: 15%;
@@ -17,4 +21,12 @@ button{
 }
 .bodyimg{
 	height: 115px;
+}
+.active{
+	border-color: blue;
+	font-style: bold;
+}
+@font-face {
+	font-family: mario;
+	src: URL(../images/supermario.ttf);
 }
