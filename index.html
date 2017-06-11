@@ -15,44 +15,48 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-3 choices">
+
+		</div>
+		<div class="row">
+			<div class="col-md-4 choices">
+			</div>
+			<div class="col-md-4 2playerframe">
 				<!-- THREE CHOICE BUTTONS -->
 				<div class="panel panel-default">
-				  <div class="panel-heading">Choices</div>
-				  <div class="panel-body">
-				    <button class="choicebtn" data-name="rock">Rock</button><br>
-					<button class="choicebtn" data-name="paper">Paper</button><br>
-					<button class="choicebtn" data-name="scissors">Scissors</button>
-				  </div>
+					<div class="panel-heading">Choices</div>
+					<div class="panel-body">
+						<button class="choicebtn" data-name="rock">Rock</button>
+						<button class="choicebtn" data-name="paper">Paper</button>
+						<button class="choicebtn" data-name="scissors">Scissors</button>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-3 1playerframe">
-				<!-- LEFT PLAYER FRAME -->
-				<div class="panel panel-default" id="p1box">
-				  <div class="panel-heading phead1">Player 1</div>
-				  <div class="panel-body pbody1">
-				    <img src="assets/images/mkartbox.gif" class="waiting1 bodyimg" style="display: none;">
-				    Wins: <span id="player1score">0</span>
-				  </div>
+			<div class="col-md-3 col-md-offset-1 chatbox">
+				<div class="row">
+					<div class="panel panel-default">
+					  <div class="panel-heading">Chat</div>
+					  <div class="panel-body">
+					    Panel content
+					  </div>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-3 2playerframe">
-				<!-- RIGHT PLAYER FRAME -->
-				<div class="panel panel-default" id="p2box">
-				  <div class="panel-heading phead2">Player 2</div>
-				  <div class="panel-body pbody2">
-				    <img src="assets/images/mkartbox.gif" class=" bodyimg waiting2" style="display: none;">
-				    Wins: <span id="player2score">0</span>
-				  </div>
+				<div class="row">
+						<div class="panel panel-default" id="p1box">
+							<div class="panel-heading phead1">Player 1</div>
+							<div class="panel-body pbody1">
+								<img src="assets/images/mkartbox.gif" class="waiting1 bodyimg" style="display: none;">
+								Wins: <span id="player1score">0</span>
+							</div>
+						</div>
 				</div>
-			</div>
-			<div class="col-md-3 chatbox">
-				<!-- CHATBOX -->
-				<div class="panel panel-default">
-				  <div class="panel-heading">Chat</div>
-				  <div class="panel-body">
-				    Panel content
-				  </div>
+				<div class="row">
+					<div class="panel panel-default" id="p2box">
+						<div class="panel-heading phead2">Player 2</div>
+						<div class="panel-body pbody2">
+							<img src="assets/images/mkartbox.gif" class=" bodyimg waiting2" style="display: none;">
+							Wins: <span id="player2score">0</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -72,20 +76,6 @@
 			</div>
 		</div>
 	</div>
-<!-- Scripts -->
-	<!-- <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-	    apiKey: "AIzaSyA8w-lQipqm-Ccbu7OB6w10TSL0XuWl9os",
-	    authDomain: "mrps-bf4df.firebaseapp.com",
-	    databaseURL: "https://mrps-bf4df.firebaseio.com",
-	    projectId: "mrps-bf4df",
-	    storageBucket: "mrps-bf4df.appspot.com",
-	    messagingSenderId: "17075432001"
-	  };
-	  firebase.initializeApp(config);
-	</script> -->
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.1/firebase-auth.js"></script>

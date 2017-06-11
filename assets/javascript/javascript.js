@@ -18,7 +18,9 @@
 
 // Functions
   function postCompareReset(){
-    myChoice = ''
+    // database.ref('gameplay/picked').once('value', function(snapshot){
+    //   if(snapshot.val() )
+    // })
     database.ref('gameplay').set({
       picked: 0
      })
@@ -28,70 +30,71 @@
      database.ref('players/player2/choice').set(
       '...'
      )
-     database.ref('players/player1').once('value').then(function(snapshot){
-       var winUpdate = snapshot.val().wins
-       $('#player1score').text(winUpdate)
-     })
-     database.ref('players/player2').once('value').then(function(snapshot){
-       var winUpdate = snapshot.val().wins
-       $('#player2score').text(winUpdate)
-     })
      myChoice = ''
      $('.bodyimg').hide()
      $('.choicebtn').attr('disabled', false)
   }
 
-  function p2Wins(){
-    if(myChoice === tempp2){
-      wins++
-      $('#player2score').text(wins)
-      database.ref('players/player2').set({
-        name: newplayer,
-        choice: '...',
-        wins: wins
+function winner(z){
+  debugger;
+  database.ref('players/player' + z).once('value').then(function(snapshot){
+    var tempWinner = snapshot.val().wins
+    tempWinner++
+    $('#player' + z + 'score').text(tempWinner)
+    if(playerNum === z){
+      database.ref('players/player' + z).update({
+        wins: tempWinner
       })
     }
-    postCompareReset()
-    console.log('P2 wins.')
-    // database.ref('players/player2').once('value').then(function(snapshot){
-    //   var winUpdate = snapshot.val().wins
-    //   $('#player2score').text(winUpdate)
-    // })
-  }
+    postCompareReset()    
+  })
+}
 
-  function p1Wins(){
-    if(myChoice === tempp1){
-      wins++
-      database.ref('players/player1').set({
-        name:newplayer,
-        choice: '...',
-        wins: wins
-      })
-    }
-    postCompareReset()
-    // database.ref('players/player1').once('value').then(function(snapshot){
-    //   var winUpdate = snapshot.val().wins
-    //   $('#player1score').text(winUpdate)
-    // })
-    console.log('P1 wins.')
-  }
+  // function p2Wins(){
+  //   if(myChoice === tempp2){
+  //     wins++
+  //     database.ref('players/player2/wins').update({
+  //       wins: wins
+  //     })
+  //   }
+  //   $('#player2score').text(wins)
+  //   postCompareReset()
+  //   console.log('P2 wins.')
+  // }
+
+  // function p1Wins(){
+  //   debugger;
+  //   if(myChoice === tempp1){
+  //     wins++
+  //     $('.player1score').text(wins)
+  //     database.ref('players/player1').update({
+  //       debugger;
+  //       wins: wins
+  //     })
+  //   }
+  //   postCompareReset()
+  //   console.log('P1 wins.')
+  // }
 
   function comparer(){
-    database.ref('players/player1/choice').once('value').then(function(snapshot1){
-      tempp1 = snapshot1.val()
-      database.ref('players/player2/choice').once('value').then(function(snapshot2){
-        tempp2 = snapshot2.val()
+    database.ref('players/player1/choice').once('value').then(function(snap1){
+      tempp1 = snap1.val()
+      database.ref('players/player2/choice').once('value').then(function(snap2){
+        tempp2 = snap2.val()
         if(tempp1 === tempp2){
-          console.log("it's a tie")
+          console.log("tempp1: " + tempp1 + ". Tempp2: " + tempp2 + ". It's a tie")
           postCompareReset()
         }
         if((tempp1 === 'rock' && tempp2 === 'paper') || (tempp1 === 'paper' && tempp2 === 'scissors') || (tempp1 === 'scissors' && tempp2 === 'rock')){
           console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-          p2Wins()
+          // p2Wins()
+          // pZWins()
+          winner(2)
         }
         if((tempp1 === 'rock' && tempp2 === 'scissors') || (tempp1 === 'paper' && tempp2 === 'rock') || (tempp1 === 'scissors' && tempp2 === 'paper')){
           console.log('Player 1 chooses: ' + tempp1 + '. Player 2 chooses: ' + tempp2 + '.')
-          p1Wins()
+          // p1Wins()
+          winner(1)
         }
         })
       })
@@ -130,6 +133,9 @@
         var tempPlayerCheck = snapshot.val()
         $('.phead1')
             .text(tempPlayerCheck.name)
+        // $('#player1score')
+        //     .text(tempPlayerCheck.wins)
+
             // .addClass('joingame')
       }
     })
@@ -143,6 +149,8 @@
         var tempPlayerCheck = snapshot.val()
         $('.phead2')
             .text(tempPlayerCheck.name)
+        // $('#player2score')
+        //     .text(tempPlayerCheck.wins)
             // .addClass('joingame')
         // $('#player2score').text('0')
       }
@@ -150,77 +158,92 @@
 
   // Listen for both choices
     var choiceCheck = database.ref('gameplay/picked')
-    choiceCheck.on('value', function(snapshot){
+    choiceCheck.on('value', function(snapshot1){
 
       // When 1 is picked
-        if(snapshot.val() <= 2){
-          if((playerNum === 1 && myChoice === '') || (playerNum === 2 && myChoice != '')){
-            $('.waiting2').show()
-          }
-          if((playerNum === 1 && myChoice != '') || (playerNum === 2 && myChoice === '')){
-            $('.waiting1').show()
-          }
+        if(snapshot1.val() <= 2 && snapshot1.val() != 0){
+          var choiceCheck2 = database.ref('players/player1')
+          choiceCheck2.once('value', function(snapshot2){
+            var choiceCheckp1 = snapshot2.val().choice
+            var choiceCheck3 = database.ref('players/player2')
+            choiceCheck3.once('value', function(snapshot3){
+              var choiceCheckp2 = snapshot3.val().choice
+                if(choiceCheckp1 != '...'){
+                  $('.waiting1').show()
+                } else {
+                  $('.waiting1').hide()
+                }
+                if(choiceCheckp2 != '...')
+                  $('.waiting2').show()
+            })
+          })
         }
+
       // When 2 are picked - Do all the logic
-        if(snapshot.val() === 2){
+        if(snapshot1.val() === 2){
           setTimeout(comparer, 2000)
         } else {
           //do nothing
         }
     })
 
+    var scoreCheck = database.ref('players')
+    scoreCheck.on('value', function(snapshot){
+
+    })
+
 // Event Handlers
 
   // Join Game Click
-    $(document).on('click', '.joingame', function(){
-      event.preventDefault()
+    $(document).on('click', '.joingame', function(event){
+      if(playerNum != 1 && playerNum != 2){
+        event.preventDefault()
 
-      // DOM controls
-        $('.signin').hide()
-        $('.gameon').show()
+        // DOM controls
+          $('.signin').hide()
+          $('.gameon').show()
 
-      // Set Variables
-        newplayer = ($('#addname').val().trim())
+        // Set Variables
+          newplayer = ($('#addname').val().trim())
 
-      // Firebase Calls
-      database.ref('players/player1').once('value').then(function(snapshot){
-        var checkplayer = snapshot.val()
-        if(checkplayer === null){
-          playerNum = 1
-          playerStart(playerNum)
-        } else {
-          database.ref('players/player2').once('value').then(function(snapshot){
-            var checkplayer2 = snapshot.val()
-            if(checkplayer2 === null){
-              playerNum = 2
-              playerStart(playerNum)
-            } else{
-              // Observers
-              playerNum = 3
-              var observerRef = database.ref('observers/' + newplayer)
-              observerRef.set({
-                name: newplayer
-              })
-              observerRef.onDisconnect().remove()
-            }
-          })
-        }
-      })
+        // Firebase Calls
+        database.ref('players/player1').once('value').then(function(snapshot){
+          var checkplayer = snapshot.val()
+          if(checkplayer === null){
+            playerNum = 1
+            playerStart(playerNum)
+          } else {
+            database.ref('players/player2').once('value').then(function(snapshot){
+              var checkplayer2 = snapshot.val()
+              if(checkplayer2 === null){
+                playerNum = 2
+                playerStart(playerNum)
+              } else{
+                // Observers
+                playerNum = 3
+                var observerRef = database.ref('observers/' + newplayer)
+                observerRef.set({
+                  name: newplayer
+                })
+                observerRef.onDisconnect().remove()
+              }
+            })
+          }
+        })
+      }
 
     });
 
   // Choice Click
-    $('.choicebtn').on('click', function(){
+    $('.choicebtn').on('click', function(event){
       event.preventDefault()
       myChoice = $(this).attr('data-name')
       $('.choicebtn').attr('disabled', true)
       database.ref('players/player' + playerNum + '/choice').once('value').then(function(snapshot){
         if(snapshot.val() == '...'){
           var tempChoiceCheck = snapshot.val()
-          database.ref('players/player' + playerNum).set({
-            name: newplayer,
-            choice: myChoice,
-            wins: wins
+          database.ref('players/player' + playerNum ).update({
+            choice: myChoice
           })
           // Increment picked
           database.ref('gameplay').once('value').then(function(snapshot){

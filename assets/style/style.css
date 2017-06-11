@@ -5,6 +5,9 @@
 	line-height: 75px;
 	font-family: mario;
 }
+body{
+	background-image:url(../images/mariobackground.jpg);
+}
 .panel-heading{
 	font-family: mario;
 }
@@ -15,7 +18,7 @@
 	text-align: center;
 }
 button{
-	margin: 20% 35%;
+	margin: 0% 7%;
 	width: 60px;
 	height: 60px;
 }
