@@ -10,17 +10,30 @@ body{
 }
 .panel-heading{
 	font-family: mario;
+	font-size: 24px;
+	text-align: center;
+}
+#phead1{
+	background-color: #cc0001;
+	color: white;
+}
+#phead2{
+	background-color: #009100;
+	color: white;
 }
 .signinbox {
 	margin-top: 15%;
 }
-.panel-heading{
-	text-align: center;
+.panel-body{
+	font-family: mario;
+	font-size: 14px;
 }
 button{
-	margin: 0% 7%;
-	width: 60px;
-	height: 60px;
+	height: 110px;
+	padding: 2px;
+}
+.choiceimg{
+	height: 94px;
 }
 .bodyimg{
 	height: 115px;

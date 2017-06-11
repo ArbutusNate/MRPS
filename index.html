@@ -25,24 +25,16 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">Choices</div>
 					<div class="panel-body">
-						<button class="choicebtn" data-name="rock">Rock</button>
-						<button class="choicebtn" data-name="paper">Paper</button>
-						<button class="choicebtn" data-name="scissors">Scissors</button>
+						<button class="choicebtn" id="rock" data-name="rock"><img src="./assets/images/rock.jpg" class="choiceimg"></button>
+						<button class="choicebtn" id="paper" data-name="paper"><img src="./assets/images/paper.jpg" class="choiceimg"></button>
+						<button class="choicebtn" id="scissors" data-name="scissors"><img src="./assets/images/scissors.jpg" class="choiceimg"></button>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3 col-md-offset-1 chatbox">
 				<div class="row">
-					<div class="panel panel-default">
-					  <div class="panel-heading">Chat</div>
-					  <div class="panel-body">
-					    Panel content
-					  </div>
-					</div>
-				</div>
-				<div class="row">
 						<div class="panel panel-default" id="p1box">
-							<div class="panel-heading phead1">Player 1</div>
+							<div class="panel-heading phead1" id="phead1">Player 1</div>
 							<div class="panel-body pbody1">
 								<img src="assets/images/mkartbox.gif" class="waiting1 bodyimg" style="display: none;">
 								Wins: <span id="player1score">0</span>
@@ -51,7 +43,7 @@
 				</div>
 				<div class="row">
 					<div class="panel panel-default" id="p2box">
-						<div class="panel-heading phead2">Player 2</div>
+						<div class="panel-heading phead2" id="phead2">Player 2</div>
 						<div class="panel-body pbody2">
 							<img src="assets/images/mkartbox.gif" class=" bodyimg waiting2" style="display: none;">
 							Wins: <span id="player2score">0</span>

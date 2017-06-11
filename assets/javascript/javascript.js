@@ -1,7 +1,8 @@
 // Variables
   var newplayer = ''
   var playerNum = 0
-  var wins = 0
+  var mywins = 0
+  var theirwins =0
   var myChoice = ''
   var tempp1 = ''
   var tempp2 = ''
@@ -35,46 +36,22 @@
      $('.choicebtn').attr('disabled', false)
   }
 
-function winner(z){
-  debugger;
-  database.ref('players/player' + z).once('value').then(function(snapshot){
-    var tempWinner = snapshot.val().wins
-    tempWinner++
-    $('#player' + z + 'score').text(tempWinner)
-    if(playerNum === z){
-      database.ref('players/player' + z).update({
-        wins: tempWinner
-      })
-    }
-    postCompareReset()    
-  })
-}
-
-  // function p2Wins(){
-  //   if(myChoice === tempp2){
-  //     wins++
-  //     database.ref('players/player2/wins').update({
-  //       wins: wins
-  //     })
-  //   }
-  //   $('#player2score').text(wins)
-  //   postCompareReset()
-  //   console.log('P2 wins.')
-  // }
-
-  // function p1Wins(){
-  //   debugger;
-  //   if(myChoice === tempp1){
-  //     wins++
-  //     $('.player1score').text(wins)
-  //     database.ref('players/player1').update({
-  //       debugger;
-  //       wins: wins
-  //     })
-  //   }
-  //   postCompareReset()
-  //   console.log('P1 wins.')
-  // }
+  function winner(z){
+    debugger;
+    database.ref('players/player' + z).once('value').then(function(snapshot){
+      var tempWinner = snapshot.val().wins
+      console.log('player ' + z + 'wins. Previous wincount = ' + tempWinner)
+      tempWinner++
+      console.log('new score for player' + z)
+      $('#player' + z + 'score').text(tempWinner)
+      if(playerNum === z){
+        database.ref('players/player' + z).update({
+          wins: tempWinner
+        })
+      }
+      postCompareReset()    
+    })
+  }
 
   function comparer(){
     database.ref('players/player1/choice').once('value').then(function(snap1){
@@ -258,6 +235,7 @@ function winner(z){
         }
       })
     })
+
 
 // Examples
   // Listener Example
